@@ -33,7 +33,7 @@ namespace WordFinder
                 //Loop looking for the word in the array string.
                 MatchWordsInArrays();
 
-                cleanRepeated(this.WordsFound);
+                cleanRepeated();
             }
             else
             {
@@ -65,9 +65,9 @@ namespace WordFinder
             }
         }
 
-        private void cleanRepeated(List<string> wordsFound)
+        private void cleanRepeated()
         {
-            this.WordsFound = wordsFound.Distinct().ToList();
+            this.WordsFound = this.WordsFound.Distinct().ToList();
         }
 
         private void MapToVectorList(IEnumerable<string> source)
