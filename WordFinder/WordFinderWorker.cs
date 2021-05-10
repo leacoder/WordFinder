@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace WordFinder
 {
-    public class WordFinderWorker
+    public class WordFinderWorker : IWordFinder
     {
-        public IEnumerable<string> Dictionary { get; set; }
-        public List<string> HorizontalListOfArray { get; set; }
-        public List<string> VerticalListOfArray { get; set; }
-        public List<string> WordsFound { get; set; }
+        public IEnumerable<string> Dictionary { get; private set; }
+        public List<string> HorizontalListOfArray { get; private set; }
+        public List<string> VerticalListOfArray { get; private set; }
+        public List<string> WordsFound { get; private set; }
         public WordFinderWorker(IEnumerable<string> dictionary)
         {
             if (dictionary.Count() <= 2048)
@@ -23,7 +23,7 @@ namespace WordFinder
         }
 
 
-        public IList<string> Find(IEnumerable<string> source)
+        public IEnumerable<string> Find(IEnumerable<string> source)
         {
             if (source.Count() <= 64)
             {
