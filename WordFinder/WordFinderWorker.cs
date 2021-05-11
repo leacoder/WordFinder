@@ -14,11 +14,11 @@ namespace WordFinder
         {
             if (dictionary.Count() <= 2048)
             {
-                this.Dictionary = dictionary;
+                Dictionary = dictionary;
             }
             else
             {
-                throw new System.InvalidOperationException("Dictionary can not exceed 2048 words.");
+                throw new InvalidOperationException("Dictionary can not exceed 2048 words.");
             }
         }
 
@@ -33,47 +33,47 @@ namespace WordFinder
                 //Loop looking for the word in the array string.
                 MatchWordsInArrays();
 
-                cleanRepeated();
+                CleanRepeated();
             }
             else
             {
-                throw new System.InvalidOperationException("Matrix should have less than 64 items");
+                throw new InvalidOperationException("Matrix should have less than 64 items");
             }
 
-            return this.WordsFound;
+            return WordsFound;
         }
 
         private void MatchWordsInArrays()
         {
-            this.WordsFound = new List<string>();
-            foreach (var word in this.Dictionary)
+            WordsFound = new List<string>();
+            foreach (var word in Dictionary)
             {
-                foreach (var item in this.HorizontalListOfArray)
+                foreach (var item in HorizontalListOfArray)
                 {
                     if (item.Contains(word))
                     {
-                        this.WordsFound.Add(word);
+                        WordsFound.Add(word);
                     }
                 }
-                foreach (var item in this.VerticalListOfArray)
+                foreach (var item in VerticalListOfArray)
                 {
                     if (item.Contains(word))
                     {
-                        this.WordsFound.Add(word);
+                        WordsFound.Add(word);
                     }
                 }
             }
         }
 
-        private void cleanRepeated()
+        private void CleanRepeated()
         {
-            this.WordsFound = this.WordsFound.Distinct().ToList();
+            WordsFound = WordsFound.Distinct().ToList();
         }
 
         private void MapToVectorList(IEnumerable<string> source)
         {
             var verticalListOfList = new List<List<string>>();
-            this.HorizontalListOfArray = new List<string>();
+            HorizontalListOfArray = new List<string>();
             var vectorList = source.ToArray();
             var count = 0;
             var firstRound = true;
@@ -96,10 +96,10 @@ namespace WordFinder
                 }
                 count = 0;
                 firstRound = false;
-                this.HorizontalListOfArray.Add(horizontalVector);
+                HorizontalListOfArray.Add(horizontalVector);
             }
             //concatenate list of charactes in list of strings
-            this.VerticalListOfArray = new List<string>();
+            VerticalListOfArray = new List<string>();
             foreach (var list in verticalListOfList)
             {
                 VerticalListOfArray.Add(string.Join("", list.ToArray()));
