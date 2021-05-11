@@ -18,6 +18,6 @@
     <ProjectReference Include="..\WordFinder\WordFinder.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties data_4longvaliddictionary_x0020__1json__JsonSchema="http://json.schemastore.org/ansible-stable-2.9" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

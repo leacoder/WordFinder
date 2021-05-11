@@ -4,8 +4,9 @@ using System.Text;
 
 namespace WordFinder
 {
-    public interface IWordFinder
+    public interface IFinderBehaviour
     {
+        IEnumerable<string> Matrix { get; set; }
         IEnumerable<string> Find(IEnumerable<string> wordstream);
     }
 }
