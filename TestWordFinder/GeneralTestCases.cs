@@ -49,6 +49,40 @@ namespace TestWordFinder
         }
 
         [TestMethod]
+        public void TestMatrix20x20RepeatedWordsInMatrix()
+        {
+            var wordStream = new string[] { "chilipeppers", "windsurf", "snowboard", "coldy" };
+            var matrix = new string[] { "wsdftyubstxacbmjutew", "icbmjutewwavsaaasdss", "ntewsdvstaafyusdsdcc", "dddtcbsdsdavsacbcbts", "sbbmtecbcbafyusatewy", "ueedavsachilipeppers", "rdcbafyuwwavstvsbted", "favsaavsbteccbdceseb", "tafyusdcestttebtewsc", "mtecdcbtewwaddtcbsdt", "davsbtebstaabbmtecba", "cbmjuteestteeedavsas", "tewsdvsewwasdcbafwwn", "ddtcbsdcbmjuavsaabto", "bbmtecbtewsdvsfyuesw", "eedavsaddtcbsdtewewb", "dcbafyubbmtecbvstvto", "avswwavsaaasdsssddwa", "wwavsaaasdsssdccbbtr", "snowboarddcccbssatsd" };
+            var wordFinder = new WordFinder.WordFinder(matrix)
+            {
+                FinderBehaviour = new HorizontalVerticalFinder()
+            };
+            var result = wordFinder.Find(wordStream) as List<string>;
+
+            //Define valid expected result
+            var expected = new List<string>() { "chilipeppers", "windsurf", "snowboard" };
+
+            CollectionAssert.AreEquivalent(expected, result);
+        }
+
+        [TestMethod]
+        public void TestMatrix20x20ShouldReturnTopTenWords()
+        {
+            var wordStream = new string[] { "top", "put", "grab", "bot", "pot", "back", "but", "bank", "ban", "sort", "eleven" };
+            var matrix = new string[] { "tbdftyubstxacbmjutew", "oopotutebacksaaasdss", "ptewsdputputputputcc", "rddtcputsdavsacbcbts", "aputtecbcbafyusatewy", "beedavsachilipeppers", "rdcbafyuwwavstvsbted", "favuaavsbtesortceset", "taftusdceselevenewso", "mtecdcbtewwaddtcbsdp", "davgrabbstaabbmtecba", "cbmjuteestteeedavsas", "tewsdvsewwasdcbafwwn", "ddtcbsdcbmjuavsaabtp", "uputecbtewsdvsfyuesw", "tedavsaddtcbsdtewewb", "dcbafyubbgrabbvstvto", "avsbanksaaasdsssddwa", "wwavbansortssdccbbtr", "botpotbackbutbanktsd" };
+            var wordFinder = new WordFinder.WordFinder(matrix)
+            {
+                FinderBehaviour = new HorizontalVerticalFinder()
+            };
+            var result = wordFinder.Find(wordStream) as List<string>;
+
+            //Define valid expected result
+            var expected = new List<string>() { "put", "ban", "top", "grab", "bot", "pot", "back", "but", "bank",  "sort" };
+
+            CollectionAssert.AreEquivalent(expected, result);
+        }
+
+        [TestMethod]
         public void TestMatrix20x20NoWordFound()
         {   
             var wordStream = new string[] { "chilipeppers", "windsurf", "snowboard", "coldy" };

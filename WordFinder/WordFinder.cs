@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace WordFinder
 {
-    public class WordFinder
+    public class WordFinder : IFinderBehaviour
     {
         public IFinderBehaviour FinderBehaviour { get; set; }
-        public IEnumerable<string> Matrix { get; private set; }
+        public IEnumerable<string> Matrix { get; set; }
         public List<string> HorizontalListOfArray { get; private set; }
         public List<string> VerticalListOfArray { get; private set; }
         public List<string> WordsFound { get; private set; }
@@ -29,7 +29,7 @@ namespace WordFinder
             {
                 FinderBehaviour.Matrix = Matrix;
                 var wordsFound = FinderBehaviour.Find(wordstream);
-                return CleanRepeatedWords(wordsFound);
+                return CleanRepeatedTopTenWords(wordsFound);
             }
             else
             {
@@ -37,16 +37,32 @@ namespace WordFinder
             } 
         }
 
-        private IEnumerable<T> CleanRepeatedWords<T>(IEnumerable<T> input)
+        private IEnumerable<T> CleanRepeatedTopTenWords<T>(IEnumerable<T> input)
         {
+            
+            var dictionaryList = new Dictionary<T, int>();
             var cleanList = new List<T>();
             foreach (T item in input)
             {
-                if (!cleanList.Contains(item))
+                if (!dictionaryList.ContainsKey(item))
                 {
-                    cleanList.Add(item);
+                    dictionaryList.Add(item, 1);
+                }
+                else
+                {
+                    dictionaryList[item]++;
                 }
             }
+
+            var moreRepeatedWords = dictionaryList.OrderByDescending(x => x.Value);
+
+            int wordsLimit = moreRepeatedWords.Count() < 10 ? moreRepeatedWords.Count() : 10;
+
+            for (int i = 0; i < wordsLimit; i++)
+            {
+                cleanList.Add(moreRepeatedWords.ElementAt(i).Key);
+            };
+
             return cleanList;
         }
 
